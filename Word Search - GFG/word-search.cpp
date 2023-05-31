@@ -4,10 +4,6 @@ using namespace std;
 
 // } Driver Code Ends
 
-#include <vector>
-#include <string>
-
-using namespace std;
 
 class Solution {
 public:
