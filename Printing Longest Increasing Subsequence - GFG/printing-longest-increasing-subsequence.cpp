@@ -5,6 +5,7 @@ using namespace std;
 
 // } Driver Code Ends
 
+
 class Solution {
   public:
     vector<int> longestIncreasingSubsequence(int n, vector<int>& arr) {
@@ -41,6 +42,7 @@ class Solution {
         return subseq[maxIdx];
     }
 };
+
 
 
 
