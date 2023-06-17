@@ -5,6 +5,7 @@ using namespace std;
 // } Driver Code Ends
 
 class Solution
+  ///Will use DFS, TC-O(V+E), SC-O(N)
 {   private:
        void dfs(int node,int vis[], stack<int>&st,vector<int> adj[] ){
            vis[node] = 1;
