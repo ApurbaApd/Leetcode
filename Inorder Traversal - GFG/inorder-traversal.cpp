@@ -34,6 +34,7 @@ class Solution {
     void f(Node* root,vector<int>&ans){
         
         if(root == NULL) return ;
+        //Left-Root-Right
         f(root->left, ans);
         ans.push_back(root->data);
         f(root->right, ans);
