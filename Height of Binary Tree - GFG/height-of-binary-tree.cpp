@@ -101,7 +101,7 @@ class Solution{
     //Function to find the height of a binary tree.
     int height(struct Node* node){
         // code here //Uisng Recursion
-        if(node == 0) return 0;
+        if(node == NULL) return 0;
         
         int leftSubTreeHeight  = height(node -> left);
         int rightSubTreeHeight = height(node->right);
