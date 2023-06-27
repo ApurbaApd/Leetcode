@@ -10,6 +10,7 @@ private:
     int func(const vector<int>& piles, int hourly, int N) {
         int totalHours = 0;
         for (int i = 0; i < N; i++) {
+            //static_cast<double>, converts int to double
             totalHours += ceil(static_cast<double>(piles[i]) / hourly);
         }
         
