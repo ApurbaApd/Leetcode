@@ -7,24 +7,34 @@ using namespace std;
 class Solution {
   public:
     bool lemonadeChange(int N, vector<int> &bills) {
-        int fives = 0, tens = 0;
-        for(auto it: bills) {
-            if(it == 5) 
-                fives++;
-            else if(it == 10) {
-                tens++;
-                if(!fives) return false;
-                fives--;
+        
+       int cnt5 = 0, cnt10 = 0, cnt20 = 0;
+
+       for(auto it: bills){
+          // Customer paid 5$
+           if(it == 5) cnt5++;
+
+           // Customer paid 10$
+           else if(it == 10) {
+                if(cnt5 == 0) return false; // No 5$ bill available to give change
+                cnt10++;
+                cnt5--;
+           }
+           // Customer paid 20$
+           else {
+                if (cnt5 > 0 && cnt10 > 0) {
+                    cnt5--;
+                    cnt10--;
+                }
+                else if (cnt5 >= 3) {
+                    cnt5 -= 3;
+                }
+                else {
+                    return false;
+                }
             }
-            else {
-                if(tens > 0 and fives > 0) {
-                    tens--;
-                    fives--;
-                } else if(fives >= 3) fives -= 3; 
-                else return false;
-            }
-        }
-        return true;
+       }
+       return true;
     }
 };
 
