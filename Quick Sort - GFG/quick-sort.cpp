@@ -21,31 +21,30 @@ class Solution
     {
         // code here
         if(low < high){
-            int PI = partition(arr, low, high);//Tells Partion Index
-            quickSort(arr, low, PI-1);//Sort the elements on the left side of Partition index
-            quickSort(arr, PI+1, high);//Sort the elements on the right side of Partition index
+            int pI = partition(arr, low, high);
+            quickSort(arr, low, pI-1);
+            quickSort(arr, pI+1, high);
+            
         }
     }
     
     public:
-    int partition (int arr[], int low, int high)//Step-1:Find the partition index and Place the pivot in it's correct position
+    int partition (int arr[], int low, int high)
     {
        // Your code here
        int pivot = arr[low];
-       int i=low,j=high;
-       while(i<j){
-           while(arr[i]<=pivot && i<=high-1){
+       int i=low, j=high;
+       while(i < j){
+           while(arr[i] <= pivot && i<= high-1){
                i++;
            }
-           while(arr[j]>pivot && j>=low+1){
+           while(arr[j] > pivot && j >= low+1){
                j--;
            }
-           if(i<j) swap(arr[i],arr[j]);
+           if(i < j) swap(arr[i], arr[j]);
        }
-       swap(arr[low],arr[j]);
+       swap(arr[low], arr[j]);
        return j;
-       
-       
     }
 };
 
