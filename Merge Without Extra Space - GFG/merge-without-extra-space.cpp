@@ -9,23 +9,20 @@ class Solution{
         //Function to merge the arrays.
         void merge(long long arr1[], long long arr2[], int n, int m) 
         { 
-        // code here 
-        int left = n-1;
-        int right = 0;
-        while(left>=0 && right < m){
-            if(arr1[left] > arr2[right]){
-                swap(arr1[left],arr2[right]);
-                left--;right++;
+            // code here 
+            int low = n-1, high = 0;
+            while(low >=0 && high < m){
+                if(arr1[low] > arr2[high]){
+                    swap(arr1[low], arr2[high]);
+                    high++;
+                }
+                low--;
             }
-            else{
-                break;
-            }
-        }
-        sort(arr1,arr1+n);
-        sort(arr2,arr2+m);
-    }
-
+            sort(arr1, arr1+n);
+            sort(arr2, arr2+m);
+        } 
 };
+
 
 //{ Driver Code Starts.
 
