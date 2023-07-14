@@ -30,11 +30,7 @@ class Solution{
                temp.push_back(arr[right]);
                  right++;
           }
-        //  long long n=temp.size();
-        //  for(long long i=0;i<n;i++){
-        //      arr[i+l]=temp[i];
-        //  }
-        
+          
         for(long long i = l; i<=h; i++){
             arr[i] = temp[i-l];
         }
