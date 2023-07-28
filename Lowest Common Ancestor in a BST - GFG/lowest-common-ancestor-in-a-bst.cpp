@@ -17,6 +17,7 @@ struct Node {
 
 // } Driver Code Ends
 //Function to find the lowest common ancestor in a BST.
+
 class Solution{
     public:
         Node* LCA(Node *root, int n1, int n2)
