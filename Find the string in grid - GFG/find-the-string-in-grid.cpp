@@ -5,38 +5,39 @@ using namespace std;
 // } Driver Code Ends
 
 class Solution {
+private:
+    bool check(int nrow, int ncol, int n, int m, int size, const string &word, const vector<vector<char>> &grid, int k) {
+        return (nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && k < size && word[k] == grid[nrow][ncol]);
+    }
+
 public:
-	vector<vector<int>>searchWord(vector<vector<char>>grid, string word){
-	    
+    vector<vector<int>> searchWord(vector<vector<char>> grid, string word) {
         int n = grid.size();
         int m = grid[0].size();
-        
+
         vector<vector<int>> ans;
-        int dx[8] = {-1, -1, 0 , 1, 1, 1,0, -1};
-        int dy[8] = {0 , 1, 1, 1, 0, -1, -1,-1};
-        
-        for(int i = 0; i<n; i++){
-            for(int j = 0; j<m; j++){
-                if(grid[i][j] == word[0]){
-                     for(int it = 0; it<8; it++){
-                         int nrow = i + dx[it];
-                         int ncol = j + dy[it];
-                         int s = word.size();
-                         int k = 1;
-                         
-                         while(nrow>=0 && nrow<n && ncol>=0 && ncol<m
-                               && k<s && word[k] == grid[nrow][ncol])
-                               {
-                                   nrow += dx[it];
-                                   ncol += dy[it];
-                                   k++;
-                               }
-                        if(k == s)
-                        {
-                            ans.push_back({i,j});
+        int dx[8] = {-1, -1, 0, 1, 1, 1, 0, -1};
+        int dy[8] = {0, 1, 1, 1, 0, -1, -1, -1};
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j] == word[0]) {
+                    for (int dir = 0; dir < 8; dir++) {
+                        int nrow = i + dx[dir];
+                        int ncol = j + dy[dir];
+                        int size = word.size();
+                        int k = 1;
+
+                        while (check(nrow, ncol, n, m, size, word, grid, k)) {
+                            nrow += dx[dir];
+                            ncol += dy[dir];
+                            k++;
+                        }
+                        if (k == size) {
+                            ans.push_back({i, j});
                             break;
                         }
-                     }
+                    }
                 }
             }
         }
