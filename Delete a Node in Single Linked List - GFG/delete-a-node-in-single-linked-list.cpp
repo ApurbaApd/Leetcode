@@ -84,34 +84,21 @@ struct Node
 */
 
 /*You are required to complete below method*/
-Node* deleteNode(Node* head, int x)
+Node* deleteNode(Node *head,int x)
 {
-    // First Node delete
-    if (x == 1) {
-        Node* temp = head;
-        head = head->next;
-        delete temp;
-    }
-    else {
-        // Deleting any middle or last node
-        Node* curr = head;
-        Node* prev = NULL;
-
-        int cnt = 1;
-        while (cnt < x && curr != NULL) {
-            prev = curr;
-            curr = curr->next;
-            cnt++;
+    //Your code here
+    //if x is first node
+    if(x == 1) 
+       return head->next;
+    Node* curr = head;
+    int i = 0;
+    while(curr){
+        i++;
+        if(i == x-1){
+            curr->next = curr->next->next;
+            break;
         }
-        
-        if (curr == NULL) {
-            // Invalid position, node not found
-            return head;
-        }
-
-        prev->next = curr->next;
-        delete curr;
+        curr = curr->next;
     }
     return head;
 }
-
