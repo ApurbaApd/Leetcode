@@ -8,58 +8,63 @@ using namespace std;
 // User function Template for C++
 
 class Solution{
-    private:
-    void dfs(int row, int col,vector<vector<int>>&vis, vector<vector<char>>&mat, int delrow[], int delcol[] ){
-        vis[row][col]= 1;
-        int  n= mat.size();
-        int m= mat[0].size();
-        
-        for(int i=0;i<4;i++){
-            int nrow=row+delrow[i];
-            int ncol=col+delcol[i];
-            
-            if(nrow>=0 && nrow < n && ncol >= 0 && ncol < m && !vis[nrow][ncol] && mat[nrow][ncol] == 'O'){
-                dfs(nrow, ncol, vis, mat, delrow, delcol);
-            }
-        }
-    }
 public:
-    vector<vector<char>> fill(int n, int m, vector<vector<char>> mat)
-    {
+    vector<vector<char>> fill(int n, int m, vector<vector<char>> mat){
         // code here
-        vector<vector<int>>vis(n, vector<int>(m, 0));
-        int delrow[] = {-1,0,+1,0};
-        int delcol[] = {0, 1, 0, -1};
-        
-        for(int j=0;j<m;j++){
-            if(!vis[0][j] && mat[0][j] == 'O'){
-                    dfs(0, j, vis, mat, delrow, delcol);
-            }
-            
-            if(!vis[n-1][j] && mat[n-1][j] == 'O'){
-                    dfs(n-1, j, vis, mat, delrow, delcol);
-            }
-        }
-        
-        for(int i=0;i<n;i++){
-            if(!vis[i][0] && mat[i][0] == 'O'){
-                    dfs(i, 0, vis, mat, delrow, delcol);
-            }
-            
-            if(!vis[i][m-1] && mat[i][m-1] == 'O'){
-                    dfs(i, m-1, vis, mat, delrow, delcol);
-            }
-        }
-        
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(!vis[i][j] && mat[i][j] == 'O'){
-                    mat[i][j] = 'X';
-                }
-            }
-        }
-        
-        return mat;
+        queue<pair<int,int>>q;
+        //marking
+       for(int i=0; i<n; i++){
+           if(mat[i][0]=='O'){
+               mat[i][0]='1';
+               q.push({i,0});
+           }
+           if(mat[i][m-1]=='O'){
+               mat[i][m-1]='1';
+               q.push({i,m-1});
+               
+           }
+       }
+       for(int i=1; i<m-1; i++){
+           if(mat[0][i]=='O'){
+               mat[0][i]='1';
+               q.push({0,i});
+               
+           }
+           if(mat[n-1][i]=='O'){
+               mat[n-1][i]='1';
+               q.push({n-1,i});
+               
+           }
+               
+       }
+       int dx[]={-1,0,1,0};
+       int dy[]={0,1,0,-1};
+    
+      while(!q.empty()){
+          auto it = q.front();
+          q.pop();
+          int row = it.first;
+          int col = it.second;
+          mat[row][col]='1';
+          //adjacents 
+          for(int i=0; i<4; i++){
+              int nrow = row + dx[i];
+              int ncol = col + dy[i];
+               
+              if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && mat[nrow][ncol]=='O'){
+                  q.push({nrow,ncol});
+              }
+          }
+      }
+       
+      for(int i =0; i<n; i++){
+          for(int j =0; j<m; j++){
+              if(mat[i][j]=='O') mat[i][j]='X';
+              if(mat[i][j]=='1')mat[i][j]='O';
+          }
+      }
+       
+       return mat;
     }
 };
 
