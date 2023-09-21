@@ -9,52 +9,44 @@ using namespace std;
 
 class Solution {
     private:
-    //row0->Base row and col0->Base col
-    void dfs(int row, int col,vector<vector<int>>&vis,vector<pair<int,int>>&vec,vector<vector<int>>& grid, int row0, int col0){
-        vis[row][col] = 1;
-        vec.push_back({row-row0, col-col0});
-        
+    void dfs(int row, int col, vector<vector<int>>&vis,vector<vector<int>>& grid,vector<pair<int, int>>&v, int row0, int col0){
         int n=grid.size();
         int m=grid[0].size();
+        vis[row][col]=1;
+        v.push_back({row-row0, col-col0});
+        int dx[] = {0, 1, 0, -1};
+        int dy[] = {1, 0, -1, 0};
         
-        int delrow[] = {-1, 0, +1, 0};
-        int delcol[]= {0, +1, 0, -1};
-        
-        //Traversing the neighbors
-        for(int i=0;i<4;i++){
-            int nrow=row + delrow[i];
-            int ncol=col+delcol[i];
-            //check
-            if(nrow >=0 && nrow<n && ncol>=0 && ncol <m && !vis[nrow][ncol] && grid[nrow][ncol] == 1){
-                dfs(nrow, ncol,vis, vec, grid, row0, col0);
+        for(int k=0; k<4; k++){
+            int nRow = row + dx[k];
+            int nCol = col + dy[k];
+            if(nRow >=0 && nRow<n && nCol>=0 && nCol<m && !vis[nRow][nCol] && grid[nRow][nCol]==1){
+                vis[nRow][nCol]=1;
+                dfs(nRow, nCol, vis,grid, v, row0, col0);
             }
-            
         }
-        
     }
   public:
     int countDistinctIslands(vector<vector<int>>& grid) {
         // code here
         int n=grid.size();
         int m=grid[0].size();
-        
-        //Visited array-> NxM
-        vector<vector<int>>vis(n,vector<int>(m, 0));
-        set<vector<pair<int,int>>> st;//To store shapes/island
-        
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(!vis[i][j] && grid[i][j] == 1){
-                    vector<pair<int, int>>vec;
-                    //n x m x 4
-                    dfs(i, j, vis,vec,grid, i, j);
-                    st.insert(vec);
+        vector<vector<int>>vis(n, vector<int>(m, 0));
+        set<vector<pair<int,int>>>st;
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
+                if(!vis[i][j] && grid[i][j]==1){
+                    vector<pair<int, int>>v;
+                    dfs(i, j, vis,grid, v, i, j);
+                    st.insert(v);
                 }
             }
         }
         return st.size();
     }
 };
+
+
 
 
 //{ Driver Code Starts.
